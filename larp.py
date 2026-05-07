@@ -7,15 +7,12 @@ import time
 
 SECRET_KEY = "1234"
 
-
-# ---------- SAFE RESTART ----------
 def restart_program():
     python = sys.executable
     subprocess.Popen([python] + sys.argv)
     os._exit(0)
 
 
-# ---------- GLITCH ----------
 def glitch_text(text):
     chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/"
     return "".join(
@@ -28,20 +25,20 @@ def glitch_text(text):
 class App:
     def __init__(self):
         self.success = False
-        self.ready = False  # prevents bootloop
+        self.ready = False
 
         self.root = tk.Tk()
         self.root.title("terminal")
 
         self.root.attributes("-fullscreen", True)
-        self.root.attributes("-topmost", True)  # 👈 ALWAYS ON TOP
+        self.root.attributes("-topmost", True)
 
         self.root.configure(bg="black")
 
         self.build_ui()
         self.bind_keys()
 
-        # IMPORTANT: grace period prevents instant focus-trigger restart
+
         self.root.after(2000, self.enable_focus_watch)
 
         self.root.mainloop()
@@ -115,11 +112,10 @@ class App:
         self.watch_focus()
 
     def watch_focus(self):
-        # BLOCK ALL LOGIC UNTIL READY
+
         if not self.ready or self.success:
             return
 
-        # ONLY restart if truly unfocused AFTER startup
         if self.root.focus_displayof() is None:
             self.status.config(text=glitch_text("FOCUS LOST... REBOOTING"))
             self.root.after(1200, restart_program)
