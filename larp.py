@@ -5,6 +5,8 @@ import subprocess
 import os
 import time
 
+# ---------- Key for unlocking ----------
+
 SECRET_KEY = "1234"
 
 def restart_program():
@@ -12,6 +14,7 @@ def restart_program():
     subprocess.Popen([python] + sys.argv)
     os._exit(0)
 
+# ---------- Random ass glitches no one asked for :sob: ----------
 
 def glitch_text(text):
     chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/"
